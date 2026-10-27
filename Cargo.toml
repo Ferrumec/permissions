@@ -2,7 +2,8 @@
 name = "ferrumec-perms"
 version = "0.1.0"
 edition = "2024"
-
+description = "Bitset-based, route-level authorization middleware for Actix Web, built for the Ferrumec microservice ecosystem."
+license = "MIT"
 [dependencies]
 actix-web = "4.18.1"
 ferrumec = { version = "0.5.0", features = ["local", "pg"] }
