@@ -14,7 +14,7 @@ use std::rc::Rc;
 use std::sync::Arc;
 use uuid::Uuid;
 use viewset::Repository;
-use viewset::{DefaultRepo, Entity};
+use viewset::DefaultRepo;
 
 #[derive(Clone)]
 pub struct Permissions {
@@ -22,7 +22,6 @@ pub struct Permissions {
     store: Arc<DefaultRepo<Absolute>>,
 }
 
-use serde::{Deserialize, Serialize};
 
 impl FromRequest for Authority {
     type Error = Error;

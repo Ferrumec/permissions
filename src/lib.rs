@@ -93,4 +93,4 @@ mod permission;
 mod repo;
 pub use middleware::Permissions;
 pub use permission::PermissionSet;
-pub use repo::{Absolute, Authority};
+pub use repo::{Absolute, Authority,AuthzControls};

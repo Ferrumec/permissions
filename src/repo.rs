@@ -1,8 +1,7 @@
 use serde::{Deserialize, Serialize};
 use sqlx::prelude::FromRow;
-use std::sync::Arc;
 use uuid::Uuid;
-use viewset::{DefaultRepo, Entity};
+use viewset::Entity;
 
 #[derive(FromRow, Deserialize, Serialize, Clone, Entity)]
 #[entity(table = "grants", create = "Authority", update = "UpdateAbsolute")]
