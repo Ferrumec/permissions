@@ -9,7 +9,7 @@ pub struct Absolute {
     #[entity(skip_update, skip_create)]
     pub id: Uuid,
     #[entity(skip_update, filterable)]
-    pub user: Uuid,
+    pub sub: Uuid,
     /// Represent u128 permission bit map, represented as str since some db do not support u128
     pub role: Uuid,
     #[entity(skip_update, filterable)]
@@ -18,7 +18,7 @@ pub struct Absolute {
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct Authority {
-    pub user: Uuid,
+    pub sub: Uuid,
     pub namespace: Uuid,
     pub role: Uuid,
 }
@@ -26,13 +26,13 @@ pub struct Authority {
 impl From<Absolute> for Authority {
     fn from(value: Absolute) -> Authority {
         let Absolute {
-            user,
+            sub,
             namespace,
             role,
             ..
         } = value;
         Authority {
-            user,
+            sub,
             namespace,
             role,
         }

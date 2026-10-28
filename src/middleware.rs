@@ -113,10 +113,15 @@ where
             });
         };
 
-        let Ok(id) = Uuid::parse_str(cookie.value()) else {
-            return Box::pin(async move {
+        let id = match Uuid::parse_str(cookie.value()){
+            Ok(id)=>id,
+            Err(e)=>{
+                return Box::pin(async move {
+                tracing::error!("error in parsing permission token: {e}, token={}",cookie.value());
                 Ok(req.into_response(HttpResponse::InternalServerError().finish()))
             });
+            }
+            
         };
 
         let store = Arc::clone(&self.store);
@@ -126,7 +131,8 @@ where
             let authority: Authority = match store.retrieve(&id).await {
                 Ok(authority) => authority.into(),
 
-                Err(_) => {
+                Err(e) => {
+                    tracing::error!("failed to retrieve grant from database: {e}");
                     return Ok(req.into_response(HttpResponse::InternalServerError().finish()));
                 }
             };
