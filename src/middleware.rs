@@ -118,7 +118,7 @@ where
             Err(e)=>{
                 return Box::pin(async move {
                 tracing::error!("error in parsing permission token: {e}, token={}",cookie.value());
-                Ok(req.into_response(HttpResponse::InternalServerError().finish()))
+                Ok(req.into_response(HttpResponse::BadRequest().finish()))
             });
             }
             
@@ -144,6 +144,7 @@ where
             let bit_mask = 1u128 << bit_id;
 
             if role & bit_mask == 0 {
+                tracing::info!("request blocked: role={role},bit_id={bit_id}");
                 return Ok(req.into_response(HttpResponse::Forbidden().finish()));
             }
 
